@@ -34,7 +34,7 @@ namespace BasicGraphicsEngine
             uint cameraSceneHeight, float cameraSceneDepth, Vector3 cameraPosition, Color backgroundColor)
         {
             _gl = window.CreateOpenGL();
-            //_gl.Enable(EnableCap.DepthTest);
+            _gl.Enable(EnableCap.DepthTest);
             _gl.Enable(GLEnum.ProgramPointSize);
             _gl.Enable(GLEnum.Multisample);
             _gl.Enable(EnableCap.Blend);
@@ -43,12 +43,14 @@ namespace BasicGraphicsEngine
             _camera = new Camera(ProjectionType.ORTHOGRAPHIC, cameraSceneHeight, cameraSceneDepth, viewportWidth, viewportHeight, cameraPosition);
 
             _particleShader = new Shader(_gl,
+                "Particle",
                 "src/Renderer/Shader/particleShader_vertex.glsl",
                 "src/Renderer/Shader/particleShader_fragment.glsl"
             );
             _particleBuffer = new ParticleBuffer(_gl, maxParticles);
 
-            _quadShader = new Shader(_gl, 
+            _quadShader = new Shader(_gl,
+                "Quad",
                 "src/Renderer/Shader/quadShader_vertex.glsl",
                 "src/Renderer/Shader/quadShader_fragment.glsl"
             );
@@ -58,6 +60,7 @@ namespace BasicGraphicsEngine
             _lineBuffer = new QuadBuffer(_gl, maxLines);
 
             _circleShader = new Shader(_gl,
+                "Circle",
                 "src/Renderer/Shader/circleShader_vertex.glsl",
                 "src/Renderer/Shader/circleShader_fragment.glsl"
             );

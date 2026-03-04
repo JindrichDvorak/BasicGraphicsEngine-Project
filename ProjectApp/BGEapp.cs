@@ -31,13 +31,13 @@ internal class BGEapp : Application
     // ==> Jakmile máte definovaný základní objekt "obj", tak jeho VYKRESLENÍ zajistíte příkazem: AddObject(obj);
     public override void Setup()
     {
-        Circle circ1 = new Circle(new Vector3(0, 0, 0), 1, new Vector4(1, 0, 0, 0f), 0.2f, Color.HotPink);
-        Circle circ2 = new Circle(new Vector3(0, 0, 1), 0.5f, new Vector4(0, 1, 0, 0f), 0.1f, Color.Green);
+        Circle circ1 = new Circle(new Vector3(0, 0, 0), 1, new Vector4(1, 0, 0, 0.5f), 0.2f, Color.HotPink);
+        Circle circ2 = new Circle(new Vector3(0, 0, 1), 0.5f, new Vector4(0, 1, 0, 0.5f), 0.1f, Color.Green);
         Quad quad = new Quad(new Vector3(1, 0, -1), 2.3f, 2.3f, Color.Black);
 
         AddObject(quad);
-        AddObject(circ2);
         AddObject(circ1);
+        AddObject(circ2);
     }
 
     // Příkazy, které se provádí před vykreslením KAŽDÉHO snímku:

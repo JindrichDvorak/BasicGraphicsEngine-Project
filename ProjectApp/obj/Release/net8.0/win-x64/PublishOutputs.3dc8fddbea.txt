@@ -1,0 +1,9 @@
+C:\Users\Dvorak\Desktop\BasicGraphicsEngine-Project\ProjectApp\bin\Release\net8.0\win-x64\publish\ProjectApp.pdb
+C:\Users\Dvorak\Desktop\BasicGraphicsEngine-Project\ProjectApp\bin\Release\net8.0\win-x64\publish\src\Renderer\Shader\circleShader_fragment.glsl
+C:\Users\Dvorak\Desktop\BasicGraphicsEngine-Project\ProjectApp\bin\Release\net8.0\win-x64\publish\src\Renderer\Shader\circleShader_vertex.glsl
+C:\Users\Dvorak\Desktop\BasicGraphicsEngine-Project\ProjectApp\bin\Release\net8.0\win-x64\publish\src\Renderer\Shader\particleShader_fragment.glsl
+C:\Users\Dvorak\Desktop\BasicGraphicsEngine-Project\ProjectApp\bin\Release\net8.0\win-x64\publish\src\Renderer\Shader\particleShader_vertex.glsl
+C:\Users\Dvorak\Desktop\BasicGraphicsEngine-Project\ProjectApp\bin\Release\net8.0\win-x64\publish\src\Renderer\Shader\quadShader_fragment.glsl
+C:\Users\Dvorak\Desktop\BasicGraphicsEngine-Project\ProjectApp\bin\Release\net8.0\win-x64\publish\src\Renderer\Shader\quadShader_vertex.glsl
+C:\Users\Dvorak\Desktop\BasicGraphicsEngine-Project\ProjectApp\bin\Release\net8.0\win-x64\publish\BasicGraphicsEngine.pdb
+C:\Users\Dvorak\Desktop\BasicGraphicsEngine-Project\ProjectApp\bin\Release\net8.0\win-x64\publish\ProjectApp.exe

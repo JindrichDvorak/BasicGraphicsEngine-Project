@@ -11,10 +11,13 @@ namespace BasicGraphicsEngine
 
         private GL _gl;
 
-        public Shader(GL gl, string VertexSourcePath, string FragmentSourcePath)
+        private string _shaderName;
+
+        public Shader(GL gl, string shaderName, string VertexSourcePath, string FragmentSourcePath)
         {
             _gl = gl;
             _uniformLocations = new Dictionary<string, int>();
+            _shaderName = shaderName;
 
             string vertexSource = ParseSource(VertexSourcePath);
             uint vertexShader = CompileShader(ShaderSourceType.VERTEX, vertexSource);
@@ -36,6 +39,17 @@ namespace BasicGraphicsEngine
             FRAGMENT,
             NONE
         };
+
+        private string GetShaderTypeString(ShaderSourceType type)
+        {
+            switch (type)
+            {
+                case ShaderSourceType.VERTEX: return "Vertex";
+                case ShaderSourceType.FRAGMENT: return "Fragment";
+            }
+
+            return "None";
+        }
 
         private string ParseSource(string sourcePath)
         {
@@ -93,6 +107,11 @@ namespace BasicGraphicsEngine
             
             _gl.ShaderSource(shaderId, source);
             _gl.CompileShader(shaderId);
+
+            _gl.GetShader(shaderId, ShaderParameterName.CompileStatus, out int vStatus);
+            if (vStatus != (int)GLEnum.True) 
+                throw new Exception($"{_shaderName}: {GetShaderTypeString(shaderType)} shader failed to compile: " + _gl.GetShaderInfoLog(shaderId));
+
             return shaderId;
         }
 
@@ -102,6 +121,9 @@ namespace BasicGraphicsEngine
             _gl.AttachShader(_id, vertexShader);
             _gl.AttachShader(_id, fragmentShader);
             _gl.LinkProgram(_id);
+
+            _gl.GetProgram(_id, ProgramPropertyARB.LinkStatus, out int lStatus);
+            if (lStatus != (int)GLEnum.True) throw new Exception($"{_shaderName}: Shader failed to link: " + _gl.GetProgramInfoLog(_id));
 
             _gl.DetachShader(_id, vertexShader);
             _gl.DetachShader(_id, fragmentShader);
