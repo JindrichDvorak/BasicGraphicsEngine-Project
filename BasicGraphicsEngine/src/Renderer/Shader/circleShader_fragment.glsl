@@ -16,7 +16,7 @@ float[2] circle(vec3 localCoord, vec3 center, float radius, float outlineThickne
     float dist = length(circVec);
     float d = 0.001 * radius;
     float innerRadius = radius - outlineThickness;
-    float[2] result = {0, 0};
+    float[2] result;
     if(dist < innerRadius)
     {
         result[0] = 0;
