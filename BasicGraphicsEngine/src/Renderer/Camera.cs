@@ -121,22 +121,22 @@ namespace BasicGraphicsEngine
 
             if (forwardKeyPressed)
             {
-                _position -= _up * _movementSpeed * dt;
+                _position += _up * _movementSpeed * dt;
                 _changedTransform = true;
             }
             if (backwardKeyPressed)
             {
-                _position += _up * _movementSpeed * dt;
+                _position -= _up * _movementSpeed * dt;
                 _changedTransform = true;
             }
             if (rightKeyPressed)
             {
-                _position -= _right * _movementSpeed * dt;
+                _position += _right * _movementSpeed * dt;
                 _changedTransform = true;
             }
             if (leftKeyPressed)
             {
-                _position += _right * _movementSpeed * dt;
+                _position -= _right * _movementSpeed * dt;
                 _changedTransform = true;
             }
 

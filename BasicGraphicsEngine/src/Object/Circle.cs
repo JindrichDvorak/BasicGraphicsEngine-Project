@@ -7,7 +7,10 @@ namespace BasicGraphicsEngine
     {
         private float _radius;
         private float _outlineThickness;
-        private Vector4 _outlineColor;
+
+        internal static int VertexCount = 4;
+        internal static int VertexIndexStride = 16;
+        internal static int InstanceIndexStride = VertexCount * VertexIndexStride;
 
         private Circle(Vector3 position, float radius, Vector4 color, float outlineThickness, Vector4 outlineColor, float rotationAngle)
             : base(GeometryType.CIRCLE, new Vector3[4], position, rotationAngle, color)
@@ -63,7 +66,7 @@ namespace BasicGraphicsEngine
         {
             UpdateVertices();
 
-            float[] vertexData = new float[4 * 16];
+            float[] vertexData = new float[InstanceIndexStride];
             int j = 0;
             for (int i = 0; i < _vertices.Length; i++)
             {
@@ -95,7 +98,7 @@ namespace BasicGraphicsEngine
                 vertexData[j + 14] = _outlineColor[2];
                 vertexData[j + 15] = _outlineColor[3];
 
-                j += 16;
+                j += VertexIndexStride;
             }
 
             return vertexData;

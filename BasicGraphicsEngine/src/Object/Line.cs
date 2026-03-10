@@ -8,6 +8,10 @@ namespace BasicGraphicsEngine
         private Vector3 _endPoint;
         private float _thickness;
 
+        internal static int VertexCount = 4;
+        internal static int VertexIndexStride = 7;
+        internal static int InstanceIndexStride = VertexCount * VertexIndexStride;
+
         public Line(Vector3 position, Vector3 endPoint, float thickness, Vector4 color, float rotationAngle)
             : base(GeometryType.LINE, new Vector3[4], position, rotationAngle, color)
         {
@@ -54,7 +58,7 @@ namespace BasicGraphicsEngine
         {
             UpdateVertices();
 
-            float[] vertexData = new float[4 * 7];
+            float[] vertexData = new float[InstanceIndexStride];
             int j = 0;
             for (int i = 0; i < _vertices.Length; i++)
             {
@@ -69,7 +73,7 @@ namespace BasicGraphicsEngine
                 vertexData[j + 5] = _color[2];
                 vertexData[j + 6] = _color[3];
 
-                j += 7;
+                j += VertexIndexStride;
             }
 
             return vertexData;

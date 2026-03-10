@@ -6,6 +6,10 @@ namespace BasicGraphicsEngine
     {
         private float _size;
 
+        internal static int VertexCount = 1;
+        internal static int VertexIndexStride = 8;
+        internal static int InstanceIndexStride = VertexCount * VertexIndexStride;
+
         public Particle(Vector3 position, float size, Vector4 color)
             : base(GeometryType.PARTICLE, [
                 new Vector3(0, 0, 0)
@@ -24,7 +28,7 @@ namespace BasicGraphicsEngine
         {
             UpdateVertices();
 
-            float[] vertexData = new float[1 * 8];
+            float[] vertexData = new float[InstanceIndexStride];
             int j = 0;
             for (int i = 0; i < _vertices.Length; i++)
             {
@@ -42,7 +46,7 @@ namespace BasicGraphicsEngine
                 vertexData[j + 6] = _color[2];
                 vertexData[j + 7] = _color[3];
 
-                j += 7;
+                j += VertexIndexStride;
             }
 
             return vertexData;

@@ -99,7 +99,7 @@ namespace BasicGraphicsEngine
         private void OnRender(double dt)
         {
             _renderer.ClearWindow();
-            _renderer.Render((float)dt, _input, _objectManager.GetVertexData());
+            _renderer.Render((float)dt, _input, _objectManager.GetVertexDataOpaque(), _objectManager.GetTransparentBatches());
         }
 
         private void OnResize(Vector2D<int> size)

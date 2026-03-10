@@ -7,13 +7,17 @@ namespace ProjectApp;
 
 internal class BGEapp : Application
 {
+    // -------------- DEFINICE MEMBER VARIABLES ------------- //
+
+    // ------------------------------------------------------ //
+
     // Konstruktor vaší aplikace, která zároveň zajišťuje základní nastavení a spuštění grafického enginu BasicGraphicsEngine:
     // ==> Některá základní nastavení je možné zvolit pomocí objektu Settings:
     //     --> Například barvu pozadí je možné nastavit (zde na bílou) takto: Settings.BackgroundColor = Color.White;
     // ==> V těle tohoto konstruktoru NENÍ MOŽNÉ psát logiku, která zajišťuje vykreslování. K tomuto účelu slouží metoda Setup().
     public BGEapp(string title, uint viewportWidth, uint viewportHeight) : base(title, viewportWidth, viewportHeight)
     {
-
+        
     }
 
     // -------------- ZÁKLADNÍ LOGIKA APLIKACE -------------- //
@@ -31,21 +35,16 @@ internal class BGEapp : Application
     // ==> Jakmile máte definovaný základní objekt "obj", tak jeho VYKRESLENÍ zajistíte příkazem: AddObject(obj);
     public override void Setup()
     {
-        Circle circ1 = new Circle(new Vector3(0, 0, 0), 1, new Vector4(1, 0, 0, 0.5f), 0.2f, Color.HotPink);
-        Circle circ2 = new Circle(new Vector3(0, 0, 1), 0.5f, new Vector4(0, 1, 0, 0.5f), 0.1f, Color.Green);
-        Quad quad = new Quad(new Vector3(1, 0, -1), 2.3f, 2.3f, Color.Black);
-
-        AddObject(quad);
-        AddObject(circ1);
-        AddObject(circ2);
+        
     }
 
     // Příkazy, které se provádí před vykreslením KAŽDÉHO snímku:
     // ==> Proměnná dt odpovídá času (v ms), jak dlouho trvalo vykreslení předchozího snímku.
+    // ==> Konkrétně se tato metoda volá ještě před tím, než se interně přepisují pozice objektů.
     // ==> Pokud chcete kameru ovládat programaticky, tak její referenci je možné získat příkazem: GetCamera()
     public override void Loop(float dt)
     {
-        
+
     }
 
     // -------------- UŽIVATELSKÝ INPUT --------------------- //

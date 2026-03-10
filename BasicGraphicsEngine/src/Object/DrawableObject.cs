@@ -10,7 +10,8 @@ namespace BasicGraphicsEngine
         QUAD,
         LINE,
         CIRCLE,
-        CUBE
+        CUBE,
+        NONE
     }
 
     public abstract class DrawableObject
@@ -20,6 +21,7 @@ namespace BasicGraphicsEngine
         protected Vector3 _position;
         protected float _rotationAngle;
         protected Vector4 _color;
+        protected Vector4 _outlineColor = new Vector4(0, 0, 0, 1.0f);
 
         protected Vector3[] _vertices;
 
@@ -235,6 +237,11 @@ namespace BasicGraphicsEngine
         public Vector4 GetColor()
         {
             return _color;
+        }
+
+        internal Vector4 GetOutlineColorInternal()
+        {
+            return _outlineColor;
         }
 
         internal GeometryType GetGeometryType()

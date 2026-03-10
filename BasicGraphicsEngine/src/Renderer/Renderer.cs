@@ -34,9 +34,9 @@ namespace BasicGraphicsEngine
             uint cameraSceneHeight, float cameraSceneDepth, Vector3 cameraPosition, Color backgroundColor)
         {
             _gl = window.CreateOpenGL();
-            _gl.Enable(EnableCap.DepthTest);
             _gl.Enable(GLEnum.ProgramPointSize);
             _gl.Enable(GLEnum.Multisample);
+            _gl.Enable(EnableCap.DepthTest);
             _gl.Enable(EnableCap.Blend);
             _gl.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
             _gl.Viewport(0, 0, viewportWidth, viewportHeight);
@@ -56,6 +56,7 @@ namespace BasicGraphicsEngine
             );
             _quadBuffer = new QuadBuffer(_gl, maxQuads);
 
+            // Lines have the same geometry as quads:
             _lineShader = _quadShader;
             _lineBuffer = new QuadBuffer(_gl, maxLines);
 
@@ -69,14 +70,40 @@ namespace BasicGraphicsEngine
             SetClearColor(backgroundColor);
         }
 
-        public void Render(float dt, IInputContext input, VertexData vertexData)
+        public void Render(float dt, IInputContext input, VertexData vertexDataOpaque, List<RenderBatch> transparentBatches)
         {
             _camera.Update(input, dt);
 
+            // Render opaque objects:
+            _gl.DepthMask(true);
+            RenderOpaque(vertexDataOpaque);
+
+            // Render transparent objects:
+            _gl.DepthMask(false);
+            RenderTransparent(transparentBatches);
+            _gl.DepthMask(true);
+        }
+
+        private void RenderOpaque(VertexData vertexData)
+        {
             if (vertexData.ParticleVertexData != null) RenderParticles(vertexData.ParticleVertexData);
-            if (vertexData.QuadVertexData != null) RenderQuads(vertexData.QuadVertexData);
-            if (vertexData.LineVertexData != null) RenderLines(vertexData.LineVertexData);
-            if (vertexData.CircleVertexData != null) RenderCircles(vertexData.CircleVertexData);
+            if (vertexData.ParticleVertexData != null) RenderQuads(vertexData.QuadVertexData);
+            if (vertexData.ParticleVertexData != null) RenderLines(vertexData.LineVertexData);
+            if (vertexData.ParticleVertexData != null) RenderCircles(vertexData.CircleVertexData);
+        }
+
+        private void RenderTransparent(List<RenderBatch> transparentBatches)
+        {
+            foreach (RenderBatch batch in transparentBatches)
+            {
+                switch (batch.Type)
+                {
+                    case GeometryType.PARTICLE: if (batch.VertexData != null) RenderParticles(batch.VertexData); break;
+                    case GeometryType.QUAD: if (batch.VertexData != null) RenderQuads(batch.VertexData); break;
+                    case GeometryType.LINE: if (batch.VertexData != null) RenderLines(batch.VertexData); break;
+                    case GeometryType.CIRCLE: if (batch.VertexData != null) RenderCircles(batch.VertexData); break;
+                }
+            }
         }
 
         private unsafe void RenderParticles(float[] vertices)

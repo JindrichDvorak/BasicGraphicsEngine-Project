@@ -34,6 +34,8 @@ void main()
 {
     float[] circle = circle(o_localPosition, o_center, o_radius, o_outlineThickness);
 
+    if(circle[1] == 0) discard;
+
     vec4 baseColor;
     if(circle[0] == 1)
     {

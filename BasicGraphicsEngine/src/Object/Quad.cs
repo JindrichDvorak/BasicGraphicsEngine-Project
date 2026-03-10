@@ -8,6 +8,10 @@ namespace BasicGraphicsEngine
         private float _width;
         private float _height;
 
+        internal static int VertexCount = 4;
+        internal static int VertexIndexStride = 7;
+        internal static int InstanceIndexStride = VertexCount * VertexIndexStride;
+
         public Quad(Vector3 position, float width, float height, Vector4 color, float rotationAngle)
             : base(GeometryType.QUAD, new Vector3[4], position, rotationAngle, color)
         { 
@@ -40,7 +44,7 @@ namespace BasicGraphicsEngine
         {
             UpdateVertices();
 
-            float[] vertexData = new float[4 * 7];
+            float[] vertexData = new float[InstanceIndexStride];
             int j = 0;
             for (int i = 0; i < _vertices.Length; i++)
             {
@@ -55,7 +59,7 @@ namespace BasicGraphicsEngine
                 vertexData[j + 5] = _color[2];
                 vertexData[j + 6] = _color[3];
 
-                j += 7;
+                j += VertexIndexStride;
             }
 
             return vertexData;
