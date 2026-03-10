@@ -35,7 +35,11 @@ internal class BGEapp : Application
     // ==> Jakmile máte definovaný základní objekt "obj", tak jeho VYKRESLENÍ zajistíte příkazem: AddObject(obj);
     public override void Setup()
     {
-        
+        Circle quad = new Circle(new Vector3(0, 0, 0), 1, new Vector4(1, 0, 0, 0.5f));
+        Circle quad1 = new Circle(new Vector3(0.5f, 0, 0.1f), 1, new Vector4(0, 1, 0, 0.5f));
+
+        AddObject(quad);
+        AddObject(quad1);
     }
 
     // Příkazy, které se provádí před vykreslením KAŽDÉHO snímku:

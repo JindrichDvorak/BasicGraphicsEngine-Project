@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using System.Runtime.CompilerServices;
 
 
 namespace BasicGraphicsEngine
@@ -134,7 +135,7 @@ namespace BasicGraphicsEngine
 
         public void SetPosition(Vector2 position)
         {
-            SetPosition(position.X, position.Y, 0.0f);
+            SetPosition(position.X, position.Y, _position.Z);
         }
 
         public void SetPosition(float x, float y)
@@ -170,6 +171,16 @@ namespace BasicGraphicsEngine
         public void SetColor(System.Drawing.Color color)
         {
             SetColor(new Vector4(color.R, color.G, color.B, color.A) / 255);
+        }
+
+        public void SetColorRGB(float r, float g, float b)
+        {
+            SetColor(r, g, b, _color[3]);
+        }
+
+        public void SetColorRGB(System.Drawing.Color color)
+        {
+            SetColorRGB(color.R, color.G, color.B);
         }
 
         // TODO: Check if the new geometry has the correct number of vertices.
@@ -227,6 +238,11 @@ namespace BasicGraphicsEngine
         public Vector3 GetPosition()
         {
             return _position;
+        }
+
+        public Vector2 GetPosition2D()
+        {
+            return new Vector2(_position.X, _position.Y);
         }
 
         public float GetRotationAngle()

@@ -44,8 +44,11 @@ namespace BasicGraphicsEngine
             SetOutlineColor(outlineColor);
         }
 
+        public Circle(Vector3 position, float radius, Vector4 color)
+            : this(position, radius, color, 0, new Vector4(0, 0, 0, 0), 0) { }
+
         public Circle(Vector3 position, float radius, System.Drawing.Color color)
-            : this(position, radius, new Vector4(1, 1, 1, 1), 0, new Vector4(0, 0, 0, 0), 0) 
+            : this(position, radius, new Vector4(1, 1, 1, 1)) 
         {
             SetColor(color);
         }
