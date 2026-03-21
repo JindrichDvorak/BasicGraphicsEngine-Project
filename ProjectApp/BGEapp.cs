@@ -7,6 +7,10 @@ namespace ProjectApp;
 
 internal class BGEapp : Application
 {
+    // -------------- DEFINICE MEMBER VARIABLES ------------- //
+
+    // ------------------------------------------------------ //
+
     // Konstruktor vaší aplikace, která zároveň zajišťuje základní nastavení a spuštění grafického enginu BasicGraphicsEngine:
     // ==> Některá základní nastavení je možné zvolit pomocí objektu Settings:
     //     --> Například barvu pozadí je možné nastavit (zde na bílou) takto: Settings.BackgroundColor = Color.White;
@@ -31,21 +35,16 @@ internal class BGEapp : Application
     // ==> Jakmile máte definovaný základní objekt "obj", tak jeho VYKRESLENÍ zajistíte příkazem: AddObject(obj);
     public override void Setup()
     {
-        Circle circ1 = new Circle(new Vector3(0, 0, 0), 1, new Vector4(1, 0, 0, 0f), 0.2f, Color.HotPink);
-        Circle circ2 = new Circle(new Vector3(0, 0, 1), 0.5f, new Vector4(0, 1, 0, 0f), 0.1f, Color.Green);
-        Quad quad = new Quad(new Vector3(1, 0, -1), 2.3f, 2.3f, Color.Black);
 
-        AddObject(quad);
-        AddObject(circ2);
-        AddObject(circ1);
     }
 
     // Příkazy, které se provádí před vykreslením KAŽDÉHO snímku:
     // ==> Proměnná dt odpovídá času (v ms), jak dlouho trvalo vykreslení předchozího snímku.
+    // ==> Konkrétně se tato metoda volá ještě před tím, než se interně přepisují pozice objektů.
     // ==> Pokud chcete kameru ovládat programaticky, tak její referenci je možné získat příkazem: GetCamera()
     public override void Loop(float dt)
     {
-        
+
     }
 
     // -------------- UŽIVATELSKÝ INPUT --------------------- //
@@ -82,10 +81,10 @@ internal class BGEapp : Application
     // ==> Pro příkazy, které se mají provést PRÁVĚ PO DETEKOVÁNÍ daného stisknutého/uvoněného tlačítka platí:
     //     --> Například pro levé tlačítko: if (button == UserMouseButton.Left) { příkaz }
     //     --> Po detekci se daný příkaz provede POUZE JEDNOU.
-    // ==> Pro příkazy, které se mají provádět, když je daná klávesa STÁLE STISKNUTÁ platí:
-    //     --> Například pro klávesu "A": if (UserInput.IsKeyPressed(UserKeyboardKey.A)) { příkaz }
-    //     --> Daný příkaz se NEUSTÁLE OPAKUJE, dokud je daná klávesa stisknutá (ale neblokuje vykreslování).
-    //     --> Tuto detekci je možné provádět i mimo následující dvě funkce, ale zde to "dává smysl".
+    // ==> Pro příkazy, které se mají provádět, když je dané tlačítko stále stisknuté platí:
+    //     --> Například pro levé tlačítko: if (UserInput.IsMouseButtonPressed(UserMouseButton.Left)) { příkaz }
+    //     --> Daný příkaz se opakuje každý snímek, dokud je dané tlačítko stisknuté (ale neblokuje vykreslování).
+    //     --> Tuto detekci je možné provádět i mimo následující dvě metody, ale zde to "dává smysl".
     public override void MouseButtonDownEvent(UserMouseButton button)
     {
 

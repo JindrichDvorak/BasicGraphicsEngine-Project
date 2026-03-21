@@ -8,6 +8,10 @@ namespace BasicGraphicsEngine
         private Vector3 _endPoint;
         private float _thickness;
 
+        internal static int VertexCount = 4;
+        internal static int VertexIndexStride = 7;
+        internal static int InstanceIndexStride = VertexCount * VertexIndexStride;
+
         public Line(Vector3 position, Vector3 endPoint, float thickness, Vector4 color, float rotationAngle)
             : base(GeometryType.LINE, new Vector3[4], position, rotationAngle, color)
         {
@@ -28,20 +32,21 @@ namespace BasicGraphicsEngine
 
         private void UpdateBaseGeometry()
         {
-            float len = _endPoint.Length();
+            Vector3 dir = _endPoint - _position;
+            float len = dir.Length();
             Vector3 xDir = new Vector3(1, 0, 0);
-            float deviation = (float)Math.Acos(Vector3.Dot(_endPoint, xDir) / len);
+            float deviation = (float)Math.Acos(Vector3.Dot(dir, xDir) / len);
 
-            Vector3 thicVec = new Vector3(0, _thickness, _endPoint.Z);
-            Vector3 rotLineVec = new Vector3(len, 0, _endPoint.Z);
+            Vector3 startVertex = new Vector3(0, _thickness, 0);
+            Vector3 endVertex = new Vector3(len, 0, dir.Z);
             SetBaseGeometry([
-                thicVec,
-                -thicVec,
-                rotLineVec - thicVec,
-                rotLineVec + thicVec
+                startVertex,
+                -startVertex,
+                endVertex - startVertex,
+                endVertex + startVertex
             ]);
 
-            Vector3 crossProd = Vector3.Cross(xDir, _endPoint);
+            Vector3 crossProd = Vector3.Cross(xDir, dir);
             int sign = 1;
             if (crossProd.Z < 0)
             { 
@@ -54,7 +59,7 @@ namespace BasicGraphicsEngine
         {
             UpdateVertices();
 
-            float[] vertexData = new float[4 * 7];
+            float[] vertexData = new float[InstanceIndexStride];
             int j = 0;
             for (int i = 0; i < _vertices.Length; i++)
             {
@@ -69,7 +74,7 @@ namespace BasicGraphicsEngine
                 vertexData[j + 5] = _color[2];
                 vertexData[j + 6] = _color[3];
 
-                j += 7;
+                j += VertexIndexStride;
             }
 
             return vertexData;

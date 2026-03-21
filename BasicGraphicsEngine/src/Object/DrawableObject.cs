@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using System.Runtime.CompilerServices;
 
 
 namespace BasicGraphicsEngine
@@ -10,7 +11,8 @@ namespace BasicGraphicsEngine
         QUAD,
         LINE,
         CIRCLE,
-        CUBE
+        CUBE,
+        NONE
     }
 
     public abstract class DrawableObject
@@ -20,6 +22,7 @@ namespace BasicGraphicsEngine
         protected Vector3 _position;
         protected float _rotationAngle;
         protected Vector4 _color;
+        protected Vector4 _outlineColor = new Vector4(0, 0, 0, 1.0f);
 
         protected Vector3[] _vertices;
 
@@ -132,7 +135,7 @@ namespace BasicGraphicsEngine
 
         public void SetPosition(Vector2 position)
         {
-            SetPosition(position.X, position.Y, 0.0f);
+            SetPosition(position.X, position.Y, _position.Z);
         }
 
         public void SetPosition(float x, float y)
@@ -170,6 +173,16 @@ namespace BasicGraphicsEngine
             SetColor(new Vector4(color.R, color.G, color.B, color.A) / 255);
         }
 
+        public void SetColorRGB(float r, float g, float b)
+        {
+            SetColor(r, g, b, _color[3]);
+        }
+
+        public void SetColorRGB(System.Drawing.Color color)
+        {
+            SetColorRGB(color.R, color.G, color.B);
+        }
+
         // TODO: Check if the new geometry has the correct number of vertices.
         internal void SetBaseGeometry(Vector3[] baseGeometry)
         {
@@ -186,36 +199,36 @@ namespace BasicGraphicsEngine
 
         // TODO: Expand to cover rotation around a custom axis.
         //           => 3D transformations are not fully supported.
-        public void RotateBaseGeometry(float angle)
+        internal void RotateBaseGeometry(float angle)
         {
             Matrix4x4 rotateMatrix = Matrix4x4.CreateRotationZ(float.DegreesToRadians(angle));
 
             TransformBaseGeometry(rotateMatrix);
         }
 
-        public void ScaleBaseGeometry(Vector3 scaleVector)
+        internal void ScaleBaseGeometry(Vector3 scaleVector)
         { 
             Matrix4x4 scaleMatrix = Matrix4x4.CreateScale(scaleVector);
 
             TransformBaseGeometry(scaleMatrix);
         }
 
-        public void ScaleBaseGeometry(float scaleX, float scaleY, float scaleZ)
+        internal void ScaleBaseGeometry(float scaleX, float scaleY, float scaleZ)
         {
             ScaleBaseGeometry(new Vector3(scaleX, scaleY, scaleZ));
         }
 
-        public void ScaleBaseGeometry(Vector2 scaleVector)
+        internal void ScaleBaseGeometry(Vector2 scaleVector)
         {
             ScaleBaseGeometry(scaleVector.X, scaleVector.Y, 1.0f);
         }
 
-        public void ScaleBaseGeometry(float scaleX, float scaleY)
+        internal void ScaleBaseGeometry(float scaleX, float scaleY)
         {
             ScaleBaseGeometry(new Vector2(scaleX, scaleY));
         }
 
-        public void ScaleBaseGeometry(float scale)
+        internal void ScaleBaseGeometry(float scale)
         {
             ScaleBaseGeometry(scale, scale, scale);
         }
@@ -227,6 +240,11 @@ namespace BasicGraphicsEngine
             return _position;
         }
 
+        public Vector2 GetPosition2D()
+        {
+            return new Vector2(_position.X, _position.Y);
+        }
+
         public float GetRotationAngle()
         {
             return _rotationAngle;
@@ -235,6 +253,11 @@ namespace BasicGraphicsEngine
         public Vector4 GetColor()
         {
             return _color;
+        }
+
+        internal Vector4 GetOutlineColorInternal()
+        {
+            return _outlineColor;
         }
 
         internal GeometryType GetGeometryType()

@@ -23,6 +23,8 @@ namespace BasicGraphicsEngine
         private float _yaw = -90.0f;
         private float _pitch = 0.0f;
         private float _zoom = 1f;
+        private float _minZoom = 0.005f;
+        private float _maxZoom = 5f;
         private uint _sceneHeight;
         private float _sceneDepth;
         private uint _viewportWidth;
@@ -176,11 +178,22 @@ namespace BasicGraphicsEngine
             if (button == MouseButton.Right) _lastMousePosition = null;
         }
 
+        private void ClampZoom()
+        {
+            if (_zoom < _minZoom) _zoom = _minZoom;
+            else if (_zoom > _maxZoom) _zoom = _maxZoom;
+        }
+
+        private void ClampZoom(float zoom)
+        { 
+            _zoom = zoom;
+            ClampZoom();
+        }
+
         internal void Zoom(ScrollWheel scrollWheel)
         {
             _zoom -= scrollWheel.Y * _scrollSensitivity;
-            if (_zoom < 0.005) _zoom = 0.005f;
-            else if (_zoom > 5) _zoom = 5.0f;
+            ClampZoom();
 
             _changedProjection = true;
         }
@@ -222,6 +235,10 @@ namespace BasicGraphicsEngine
             _changedProjection = true;
         }
 
+        /// <summary>
+        /// Metoda <c>SetPosition()</c> umožňuje programaticky nastavit polohu kamery pomocí vektoru.
+        /// </summary>
+        /// <param name="position">3D vektor určující novou pozici kamery.</param>
         public void SetPosition(Vector3 position)
         { 
             _position = position;
@@ -229,21 +246,42 @@ namespace BasicGraphicsEngine
             _changedTransform = true;
         }
 
+        /// <summary>
+        /// Metoda <c>SetPosition()</c> umožňuje programaticky nastavit polohu kamery zadáním jednotlivých souřadnic.
+        /// </summary>
+        /// <param name="x">Racionální číslo určující x-ovou souřadnici nové pozice kamery.</param>
+        /// <param name="y">Racionální číslo určující y-ovou souřadnici nové pozice kamery.</param>
+        /// <param name="z">Racionální číslo určující z-ovou souřadnici nové pozice kamery.</param>
         public void SetPosition(float x, float y, float z)
         { 
             SetPosition(new Vector3(x, y, z));
         }
 
+        /// <summary>
+        /// Metoda <c>SetPosition()</c> umožňuje programaticky nastavit polohu kamery při zachování její původní výšky 
+        /// (z-ová souřadnice pozice) pomocí vektoru.
+        /// </summary>
+        /// <param name="position">2D vektor určující x-ovou a y-ovou souřadnici nové pozice kamery.</param>
         public void SetPosition(Vector2 position)
         {
-            SetPosition(position.X, position.Y, 0.0f);
+            SetPosition(position.X, position.Y, _position.Z);
         }
 
+        /// <summary>
+        /// Metoda <c>SetPosition()</c> umožňuje programaticky nastavit polohu kamery při zachování její původní výšky 
+        /// (z-ová souřadnice pozice) pomocí jednotlivých souřadnic.
+        /// </summary>
+        /// <param name="x">Racionální číslo určující x-ovou souřadnici nové pozice kamery.</param>
+        /// <param name="y">Racionální číslo určující y-ovou souřadnici nové pozice kamery.</param>
         public void SetPosition(float x, float y)
         {
             SetPosition(new Vector2(x, y));
         }
 
+        /// <summary>
+        /// Metoda <c>SetRotationAngle()</c> otočí kameru kolem osy z o úhel, který určuje parametr <c>rotationAngle</c>.
+        /// </summary>
+        /// <param name="rotationAngle">Racionální číslo reprezentující velikost úhlu v radiánech.</param>
         public void SetRotationAngle(float rotationAngle)
         {
             _rotationAngle = rotationAngle;
@@ -251,13 +289,24 @@ namespace BasicGraphicsEngine
             _changedTransform = true;
         }
 
+        /// <summary>
+        /// Metoda <c>SetZoom()</c> umožňuje programaticky regulovat přiblížení zorného pole kamery pomocí parametru <c>zoom</c>.
+        /// </summary>
+        /// <param name="zoom">Racionální číslo z intervalu (0.005; 5). S rostoucí hodnotou zoom se kamera "oddaluje" => 
+        /// zvětšuje se její zorné pole.</param>
         public void SetZoom(float zoom)
         {
-            _zoom = zoom;
+            ClampZoom(zoom);
 
             _changedProjection = true;
         }
 
+        /// <summary>
+        /// Metoda <c>SetSceneHeight()</c> umožňuje nastavení výšky zorného pole kamery při základním přiblížení (<c>zoom = 1</c>) 
+        /// pomocí parametru <c>sceneHeight</c>. Šířka zorného pole se podle zadané hodnoty výšky automaticky nastaví tak, aby 
+        /// zachovala poměr stran okna aplikace.
+        /// </summary>
+        /// <param name="sceneHeight">Přirozené číslo reprezentující základní výšku zorného pole kamery.</param>
         public void SetSceneHeight(uint sceneHeight)
         {
             _sceneHeight = sceneHeight;
@@ -265,6 +314,12 @@ namespace BasicGraphicsEngine
             _changedProjection = true;
         }
 
+        /// <summary>
+        /// Metoda <c>SetSceneDepth()</c> umožňuje nastavení hloubky zorného pole kamery pomocí parametru <c>sceneDepth</c>. 
+        /// Hloubka zorného pole určuje, jak daleko se nachází ještě viditelná rovina od kamery. Všechny další roviny, které jsou 
+        /// od kamery vzdálenější se již nezobrazí.
+        /// </summary>
+        /// <param name="sceneDepth">Racionální číslo určující hloubku zorného pole kamery.</param>
         public void SetSceneDepth(float sceneDepth)
         { 
             _sceneDepth = sceneDepth;
@@ -272,26 +327,55 @@ namespace BasicGraphicsEngine
             _changedProjection = true;
         }
 
+        /// <summary>
+        /// Funkce <c>GetPosition()</c> vrací okamžitou polohu kamery jako 3D vektor.
+        /// </summary>
+        /// <returns>Pozici kamery jako <c>Vector3</c>.</returns>
         public Vector3 GetPosition()
         { 
             return _position;
         }
 
+        /// <summary>
+        /// Funkce <c>GetPosition2D()</c> vrací okamžitou polohu kamery jako 2D vektor v rovině xy.
+        /// </summary>
+        /// <returns>Pozici kamery jako <c>Vector2</c>, který obsahuje x-ovou a y-ovou souřadnici skutečné polohy kamery (<c>Vector3</c>).</returns>
+        public Vector2 GetPosition2D()
+        {
+            return new Vector2(_position.X, _position.Y);
+        }
+
+        /// <summary>
+        /// Funkce <c>GetRotationAngle()</c> vrací aktuální úhel natočení kamery kolem osy z jako reálné číslo v radiánech.
+        /// </summary>
+        /// <returns>Úhel (v radiánech) natočení kamery kolem osy z jako <c>float</c>.</returns>
         public float GetRotationAngle()
         {
             return _rotationAngle;
         }
 
+        /// <summary>
+        /// Funkce <c>GetZoom()</c> vrací aktuální hodnotu přiblížení zorného pole kamery jako reálné číslo.
+        /// </summary>
+        /// <returns>Racionální číslo určující přiblížení kamery jako <c>float</c>.</returns>
         public float GetZoom()
         {
             return _zoom;
         }
 
+        /// <summary>
+        /// Funkce <c>GetSceneHeight()</c> vrací aktuální hodnotu výšky zorného pole kamery jako přirozené číslo.
+        /// </summary>
+        /// <returns>Přirozené číslo reprezentující výšku zorného pole kamery jako <c>uint</c>.</returns>
         public uint GetSceneHeight()
         {
             return _sceneHeight;
         }
 
+        /// <summary>
+        /// Funkce <c>GetSceneDepth()</c> vrací aktuální hodnotu hloubky zorného pole kamery jako reálné číslo.
+        /// </summary>
+        /// <returns>Racionální číslo reprezentující hloubku zorného pole kamery jako <c>float</c>.</returns>
         public float GetSceneDepth()
         {
             return _sceneDepth;

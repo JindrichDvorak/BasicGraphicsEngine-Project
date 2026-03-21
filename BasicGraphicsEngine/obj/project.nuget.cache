@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iyPVEm18qI8=",
+  "dgSpecHash": "gSXZsAQpOWo=",
   "success": true,
-  "projectFilePath": "C:\\dev\\BasicGraphicsEngine-Project\\BasicGraphicsEngine\\BasicGraphicsEngine.csproj",
+  "projectFilePath": "C:\\Users\\Dvorak\\Desktop\\BasicGraphicsEngine-Project\\BasicGraphicsEngine\\BasicGraphicsEngine.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Dvorak\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Dvorak\\.nuget\\packages\\microsoft.dotnet.platformabstractions\\3.1.6\\microsoft.dotnet.platformabstractions.3.1.6.nupkg.sha512",

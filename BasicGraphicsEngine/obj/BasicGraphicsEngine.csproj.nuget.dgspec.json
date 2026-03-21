@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\dev\\BasicGraphicsEngine-Project\\BasicGraphicsEngine\\BasicGraphicsEngine.csproj": {}
+    "C:\\Users\\Dvorak\\Desktop\\BasicGraphicsEngine-Project\\BasicGraphicsEngine\\BasicGraphicsEngine.csproj": {}
   },
   "projects": {
-    "C:\\dev\\BasicGraphicsEngine-Project\\BasicGraphicsEngine\\BasicGraphicsEngine.csproj": {
+    "C:\\Users\\Dvorak\\Desktop\\BasicGraphicsEngine-Project\\BasicGraphicsEngine\\BasicGraphicsEngine.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\dev\\BasicGraphicsEngine-Project\\BasicGraphicsEngine\\BasicGraphicsEngine.csproj",
+        "projectUniqueName": "C:\\Users\\Dvorak\\Desktop\\BasicGraphicsEngine-Project\\BasicGraphicsEngine\\BasicGraphicsEngine.csproj",
         "projectName": "BasicGraphicsEngine",
-        "projectPath": "C:\\dev\\BasicGraphicsEngine-Project\\BasicGraphicsEngine\\BasicGraphicsEngine.csproj",
+        "projectPath": "C:\\Users\\Dvorak\\Desktop\\BasicGraphicsEngine-Project\\BasicGraphicsEngine\\BasicGraphicsEngine.csproj",
         "packagesPath": "C:\\Users\\Dvorak\\.nuget\\packages\\",
-        "outputPath": "C:\\dev\\BasicGraphicsEngine-Project\\BasicGraphicsEngine\\obj\\",
+        "outputPath": "C:\\Users\\Dvorak\\Desktop\\BasicGraphicsEngine-Project\\BasicGraphicsEngine\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
