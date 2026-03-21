@@ -35,11 +35,9 @@ internal class BGEapp : Application
     // ==> Jakmile máte definovaný základní objekt "obj", tak jeho VYKRESLENÍ zajistíte příkazem: AddObject(obj);
     public override void Setup()
     {
-        Quad quad = new Quad(new Vector3(1, 0, -1), 2.3f, 2.3f, Color.Black);
-        Quad quad = new Quad(new Vector3(1, 0, -1), 2.3f, 2.3f, Color.Black);
-        AddObject(circ2);
-        AddObject(circ1);
+
     }
+
     // Příkazy, které se provádí před vykreslením KAŽDÉHO snímku:
     // ==> Proměnná dt odpovídá času (v ms), jak dlouho trvalo vykreslení předchozího snímku.
     // ==> Konkrétně se tato metoda volá ještě před tím, než se interně přepisují pozice objektů.
