@@ -123,61 +123,123 @@ namespace BasicGraphicsEngine
             }
         }
 
+        /// <summary>
+        /// Metoda <c>SetPosition()</c> umožňuje nastavit polohu objektu pomocí vektoru.
+        /// </summary>
+        /// <param name="position">3D vektor určující novou polohu objektu.</param>
         public void SetPosition(Vector3 position)
         { 
             _position = position;
         }
 
+        /// <summary>
+        /// Metoda <c>SetPosition()</c> umožňuje nastavit polohu objektu zadáním jednotlivých souřadnic.
+        /// </summary>
+        /// <param name="x">Racionální číslo určující x-ovou souřadnici nové pozice objektu.</param>
+        /// <param name="y">Racionální číslo určující y-ovou souřadnici nové pozice objektu.</param>
+        /// <param name="z">Racionální číslo určující z-ovou souřadnici nové pozice objektu.</param>
         public void SetPosition(float x, float y, float z)
         {
             SetPosition(new Vector3(x, y, z));
         }
 
+        /// <summary>
+        /// Metoda <c>SetPosition()</c> umožňuje programaticky nastavit polohu objektu při zachování jeho původní výšky 
+        /// (z-ová souřadnice pozice) pomocí vektoru.
+        /// </summary>
+        /// <param name="position">2D vektor určující x-ovou a y-ovou souřadnici nové pozice objektu.</param>
         public void SetPosition(Vector2 position)
         {
             SetPosition(position.X, position.Y, _position.Z);
         }
 
+        /// <summary>
+        /// Metoda <c>SetPosition()</c> umožňuje programaticky nastavit polohu objektu při zachování jeho původní výšky 
+        /// (z-ová souřadnice pozice) zadáním x-ové a y-ové souřadnice.
+        /// </summary>
+        /// <param name="x">Racionální číslo určující x-ovou souřadnici nové pozice objektu.</param>
+        /// <param name="y">Racionální číslo určující y-ovou souřadnici nové pozice objektu.</param>
         public void SetPosition(float x, float y)
         {
             SetPosition(new Vector2(x, y));
         }
 
+        /// <summary>
+        /// Metoda <c>SetRotationAngle()</c> otočí objekt kolem osy z o úhel (v radiánech), který určuje parametr <c>rotationAngle</c>.
+        /// </summary>
+        /// <param name="rotationAngle">Racionální číslo reprezentující velikost úhlu v radiánech.</param>
         public void SetRotationAngle(float rotationAngle)
         { 
             _rotationAngle = rotationAngle;
         }
 
+        /// <summary>
+        /// Metoda <c>SetColor()</c> umožňuje změnit barvu objektu na zadanou barvu ve formátu RGBA určenou 4D vektorem.
+        /// </summary>
+        /// <param name="color">4D vektor reprezentující barvu ve formátu RGBA. Jednolivé složky nabývají racionálních hodnot z intervalu (0; 1).</param>
         public void SetColor(Vector4 color)
         { 
             _color = color;
         }
 
+        /// <summary>
+        /// Metoda <c>SetColor()</c> umožňuje změnit barvu objektu na zadanou barvu ve formátu RGBA určenou pomocí jednotlivých složek.
+        /// </summary>
+        /// <param name="r">Racionální číslo z intervalu (0; 1) reprezentující červenou složku výsledné barvy.</param>
+        /// <param name="g">Racionální číslo z intervalu (0; 1) reprezentující zelenou složku výsledné barvy.</param>
+        /// <param name="b">Racionální číslo z intervalu (0; 1) reprezentující modrou složku výsledné barvy.</param>
+        /// <param name="a">Racionální číslo z intervalu (0; 1) reprezentující alfa složku výsledné barvy.</param>
         public void SetColor(float r, float g, float b, float a)
         {
             SetColor(new Vector4(r, g, b, a));
         }
 
+        /// <summary>
+        /// Metoda <c>SetColor()</c> umožňuje změnit barvu objektu na zadanou barvu ve formátu RGB určenou 3D vektorem.
+        /// </summary>
+        /// <param name="color">3D vektor reprezentující barvu ve formátu RGB. Jednolivé složky nabývají racionálních hodnot z intervalu (0; 1).</param>
         public void SetColor(Vector3 color)
         {
             SetColor(color.X, color.Y, color.Z, 1.0f);
         }
 
+        /// <summary>
+        /// Metoda <c>SetColor()</c> umožňuje změnit barvu objektu na zadanou barvu ve formátu RGB určenou pomocí jednotlivých složek.
+        /// </summary>
+        /// <param name="r">Racionální číslo z intervalu (0; 1) reprezentující červenou složku výsledné barvy.</param>
+        /// <param name="g">Racionální číslo z intervalu (0; 1) reprezentující zelenou složku výsledné barvy.</param>
+        /// <param name="b">Racionální číslo z intervalu (0; 1) reprezentující modrou složku výsledné barvy.</param>
         public void SetColor(float r, float g, float b)
         {
             SetColor(new Vector3(r, g, b));
         }
 
+        /// <summary>
+        /// Metoda <c>SetColor()</c> umožňuje změnit barvu objektu na zadanou barvu typu <c>System.Drawing.Color</c>.
+        /// </summary>
+        /// <param name="color">Barva reprezentovaná objektem typu <c>System.Drawing.Color</c>.</param>
         public void SetColor(System.Drawing.Color color)
         {
             SetColor(new Vector4(color.R, color.G, color.B, color.A) / 255);
         }
 
+        /// <summary>
+        /// Metoda <c>SetColor()</c> umožňuje změnit barvu objektu na zadanou barvu ve formátu RGB určenou pomocí jednotlivých složek 
+        /// při zachování alfa složky předchozí barvy.
+        /// </summary>
+        /// <param name="r">Racionální číslo z intervalu (0; 1) reprezentující červenou složku výsledné barvy.</param>
+        /// <param name="g">Racionální číslo z intervalu (0; 1) reprezentující zelenou složku výsledné barvy.</param>
+        /// <param name="b">Racionální číslo z intervalu (0; 1) reprezentující modrou složku výsledné barvy.</param>
         public void SetColorRGB(float r, float g, float b)
         {
             SetColor(r, g, b, _color[3]);
         }
 
+        /// <summary>
+        /// Metoda <c>SetColor()</c> umožňuje změnit barvu objektu na zadanou barvu typu <c>System.Drawing.Color</c> 
+        /// při zachování alfa složky předchozí barvy.
+        /// </summary>
+        /// <param name="color">Barva reprezentovaná objektem typu <c>System.Drawing.Color</c>.</param>
         public void SetColorRGB(System.Drawing.Color color)
         {
             SetColorRGB(color.R, color.G, color.B);
@@ -235,21 +297,37 @@ namespace BasicGraphicsEngine
 
         // TODO: SetGeometryType(GeometryType geometryType);
 
+        /// <summary>
+        /// Funkce <c>GetPosition()</c> vrací okamžitou polohu objektu jako 3D vektor.
+        /// </summary>
+        /// <returns>Pozici objektu jako <c>Vector3</c>.</returns>
         public Vector3 GetPosition()
         {
             return _position;
         }
 
+        /// <summary>
+        /// Funkce <c>GetPosition2D()</c> vrací okamžitou polohu objektu jako 2D vektor v rovině xy.
+        /// </summary>
+        /// <returns>Pozici objektu jako <c>Vector2</c>, který obsahuje x-ovou a y-ovou souřadnici skutečné polohy kamery (<c>Vector3</c>).</returns>
         public Vector2 GetPosition2D()
         {
             return new Vector2(_position.X, _position.Y);
         }
 
+        /// <summary>
+        /// Funkce <c>GetRotationAngle()</c> vrací aktuální úhel natočení objektu kolem osy z jako reálné číslo v radiánech.
+        /// </summary>
+        /// <returns>Úhel (v radiánech) natočení objektu kolem osy z jako <c>float</c>.</returns>
         public float GetRotationAngle()
         {
             return _rotationAngle;
         }
 
+        /// <summary>
+        /// Funkce <c>GetColor()</c> vrací barvu objektu ve formátu RGBA jako 4D vektor.
+        /// </summary>
+        /// <returns>Barvu ve formátu RGBA jako <c>Vector4</c>.</returns>
         public Vector4 GetColor()
         {
             return _color;

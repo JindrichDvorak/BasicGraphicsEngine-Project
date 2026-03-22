@@ -12,7 +12,7 @@ namespace BasicGraphicsEngine
         internal static int VertexIndexStride = 7;
         internal static int InstanceIndexStride = VertexCount * VertexIndexStride;
 
-        public Line(Vector3 position, Vector3 endPoint, float thickness, Vector4 color, float rotationAngle)
+        private Line(Vector3 position, Vector3 endPoint, float thickness, Vector4 color, float rotationAngle)
             : base(GeometryType.LINE, new Vector3[4], position, rotationAngle, color)
         {
             _endPoint = endPoint;
@@ -21,9 +21,36 @@ namespace BasicGraphicsEngine
             UpdateBaseGeometry();
         }
 
+        /// <summary>
+        /// Konstruktor třídy <c>Line</c>, který vytvoří orientovanou úsečku pomocí následujících parametrů (v uvedeném pořadí):
+        /// <list type="bullet">
+        ///     <item>Počáteční bod úsečky: <c>Vector3</c>.</item>
+        ///     <item>Koncový bod úsečky: <c>Vector3</c>.</item>
+        ///     <item>Tloušťka úsečky: <c>float</c>.</item>
+        ///     <item>Barva: <c>Vector4</c> (RGBA).</item>
+        /// </list>
+        /// </summary>
+        /// <param name="position">3D vektor určující počáteční bod úsečky.</param>
+        /// <param name="endPoint">3D vektor určující koncový bod úsečky.</param>
+        /// <param name="thickness">Racionální číslo určující tloušťku úsečky.</param>
+        /// <param name="color">4D vektor určující barvu úsečky ve formátu RGBA. Jednolivé složky nabývají racionálních 
+        /// hodnot z intervalu (0; 1).</param>
         public Line(Vector3 position, Vector3 endPoint, float thickness, Vector4 color)
             : this(position, endPoint, thickness, color, 0) { }
 
+        /// <summary>
+        /// Konstruktor třídy <c>Line</c>, který vytvoří orientovanou úsečku pomocí následujících parametrů (v uvedeném pořadí):
+        /// <list type="bullet">
+        ///     <item>Počáteční bod úsečky: <c>Vector3</c>.</item>
+        ///     <item>Koncový bod úsečky: <c>Vector3</c>.</item>
+        ///     <item>Tloušťka úsečky: <c>float</c>.</item>
+        ///     <item>Barva: <c>System.Drawing.Color</c> (RGB).</item>
+        /// </list>
+        /// </summary>
+        /// <param name="position">3D vektor určující počáteční bod úsečky.</param>
+        /// <param name="endPoint">3D vektor určující koncový bod úsečky.</param>
+        /// <param name="thickness">Racionální číslo určující tloušťku úsečky.</param>
+        /// <param name="color">Barva reprezentovaná objektem typu <c>System.Drawing.Color</c> určující barvu úsečky ve formátu RGB.</param>
         public Line(Vector3 position, Vector3 endPoint, float thickness, System.Drawing.Color color)
             : this(position, endPoint, thickness, new Vector4(1, 1, 1, 1), 0)
         {

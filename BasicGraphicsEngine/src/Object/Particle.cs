@@ -10,6 +10,18 @@ namespace BasicGraphicsEngine
         internal static int VertexIndexStride = 8;
         internal static int InstanceIndexStride = VertexCount * VertexIndexStride;
 
+        /// <summary>
+        /// Konstruktor třídy <c>Particle</c>, který vytvoří bod (ve tvaru čtverce) pomocí následujících parametrů (v uvedeném pořadí):
+        /// <list type="bullet">
+        ///     <item>Poloha bodu: <c>Vector3</c>.</item>
+        ///     <item>Velikost bodu: <c>float</c>.</item>
+        ///     <item>Barva: <c>Vector4</c> (RGBA).</item>
+        /// </list>
+        /// </summary>
+        /// <param name="position">3D vektor určující polohu bodu.</param>
+        /// <param name="size">Racionální číslo určující velikost bodu.</param>
+        /// <param name="color">4D vektor určující barvu bodu ve formátu RGBA. Jednolivé složky nabývají racionálních 
+        /// hodnot z intervalu (0; 1).</param>
         public Particle(Vector3 position, float size, Vector4 color)
             : base(GeometryType.PARTICLE, [
                 new Vector3(0, 0, 0)
@@ -18,6 +30,17 @@ namespace BasicGraphicsEngine
             _size = size;
         }
 
+        /// <summary>
+        /// Konstruktor třídy <c>Particle</c>, který vytvoří bod (ve tvaru čtverce) pomocí následujících parametrů (v uvedeném pořadí):
+        /// <list type="bullet">
+        ///     <item>Poloha bodu: <c>Vector3</c>.</item>
+        ///     <item>Velikost bodu: <c>float</c>.</item>
+        ///     <item>Barva: <c>System.Drawing.Color</c> (RGB).</item>
+        /// </list>
+        /// </summary>
+        /// <param name="position">3D vektor určující polohu bodu.</param>
+        /// <param name="size">Racionální číslo určující velikost bodu.</param>
+        /// <param name="color">Barva reprezentovaná objektem typu <c>System.Drawing.Color</c> určující barvu bodu ve formátu RGB.</param>
         public Particle(Vector3 position, float size, System.Drawing.Color color)
             : this(position, size, new Vector4(1, 1, 1, 1))
         {

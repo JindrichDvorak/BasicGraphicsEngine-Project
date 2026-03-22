@@ -22,21 +22,85 @@ namespace BasicGraphicsEngine
             UpdateBaseGeometry();
         }
 
+        /// <summary>
+        /// Konstruktor třídy <c>Circle</c>, který vytvoří kruh s ohraničením pomocí následujících parametrů (v uvedeném pořadí):
+        /// <list type="bullet">
+        ///     <item>Střed kruhu: <c>Vector3</c>.</item>
+        ///     <item>Poloměr kruhu: <c>float</c>.</item>
+        ///     <item>Barva: <c>Vector4</c> (RGBA).</item>
+        ///     <item>Tloušťka ohraničení kruhu: <c>float</c>.</item>
+        ///     <item>Barva ohraničení: <c>Vector4</c> (RGBA).</item>
+        /// </list>
+        /// </summary>
+        /// <param name="position">3D vektor určující polohu i střed kruhu.</param>
+        /// <param name="radius">Racionální číslo určující poloměr kruhu.</param>
+        /// <param name="color">4D vektor určující barvu kruhu ve formátu RGBA. Jednolivé složky nabývají racionálních hodnot z intervalu 
+        /// (0; 1).</param>
+        /// <param name="outlineThickness">Racionální číslo určující tloušťku ohraničení kruhu.</param>
+        /// <param name="outlineColor">4D vektor určující barvu ohraničení kruhu ve formátu RGBA. Jednolivé složky nabývají racionálních 
+        /// hodnot z intervalu (0; 1).</param>
         public Circle(Vector3 position, float radius, Vector4 color, float outlineThickness, Vector4 outlineColor)
             : this(position, radius, color, outlineThickness, outlineColor, 0) { }
 
+        /// <summary>
+        /// Konstruktor třídy <c>Circle</c>, který vytvoří kruh s ohraničením pomocí následujících parametrů (v uvedeném pořadí):
+        /// <list type="bullet">
+        ///     <item>Střed kruhu: <c>Vector3</c>.</item>
+        ///     <item>Poloměr kruhu: <c>float</c>.</item>
+        ///     <item>Barva: <c>System.Drawing.Color</c> (RGB).</item>
+        ///     <item>Tloušťka ohraničení kruhu: <c>float</c>.</item>
+        ///     <item>Barva ohraničení: <c>Vector4</c> (RGBA).</item>
+        /// </list>
+        /// </summary>
+        /// <param name="position">3D vektor určující polohu i střed kruhu.</param>
+        /// <param name="radius">Racionální číslo určující poloměr kruhu.</param>
+        /// <param name="color">Barva reprezentovaná objektem typu <c>System.Drawing.Color</c> určující barvu kruhu ve formátu RGB.</param>
+        /// <param name="outlineThickness">Racionální číslo určující tloušťku ohraničení kruhu.</param>
+        /// <param name="outlineColor">4D vektor určující barvu ohraničení kruhu ve formátu RGBA. Jednolivé složky nabývají racionálních 
+        /// hodnot z intervalu (0; 1).</param>
         public Circle(Vector3 position, float radius, System.Drawing.Color color, float outlineThickness, Vector4 outlineColor)
             : this(position, radius, new Vector4(1, 1, 1, 1), outlineThickness, outlineColor, 0) 
         {
             SetColor(color);
         }
 
+        /// <summary>
+        /// Konstruktor třídy <c>Circle</c>, který vytvoří kruh s ohraničením pomocí následujících parametrů (v uvedeném pořadí):
+        /// <list type="bullet">
+        ///     <item>Střed kruhu: <c>Vector3</c>.</item>
+        ///     <item>Poloměr kruhu: <c>float</c>.</item>
+        ///     <item>Barva: <c>Vector4</c> (RGBA).</item>
+        ///     <item>Tloušťka ohraničení kruhu: <c>float</c>.</item>
+        ///     <item>Barva ohraničení: <c>System.Drawing.Color</c> (RGB).</item>
+        /// </list>
+        /// </summary>
+        /// <param name="position">3D vektor určující polohu i střed kruhu.</param>
+        /// <param name="radius">Racionální číslo určující poloměr kruhu.</param>
+        /// <param name="color">4D vektor určující barvu kruhu ve formátu RGBA. Jednolivé složky nabývají racionálních hodnot z intervalu 
+        /// (0; 1).</param>
+        /// <param name="outlineThickness">Racionální číslo určující tloušťku ohraničení kruhu.</param>
+        /// <param name="outlineColor">Barva reprezentovaná objektem typu <c>System.Drawing.Color</c> určující barvu ohraničení kruhu ve formátu RGB.</param>
         public Circle(Vector3 position, float radius, Vector4 color, float outlineThickness, System.Drawing.Color outlineColor)
             : this(position, radius, color, outlineThickness, new Vector4(1, 1, 1, 1), 0) 
         {
             SetOutlineColor(outlineColor);
         }
 
+        /// <summary>
+        /// Konstruktor třídy <c>Circle</c>, který vytvoří kruh s ohraničením pomocí následujících parametrů (v uvedeném pořadí):
+        /// <list type="bullet">
+        ///     <item>Střed kruhu: <c>Vector3</c>.</item>
+        ///     <item>Poloměr kruhu: <c>float</c>.</item>
+        ///     <item>Barva: <c>System.Drawing.Color</c> (RGB).</item>
+        ///     <item>Tloušťka ohraničení kruhu: <c>float</c>.</item>
+        ///     <item>Barva ohraničení: <c>System.Drawing.Color</c> (RGB).</item>
+        /// </list>
+        /// </summary>
+        /// <param name="position">3D vektor určující polohu i střed kruhu.</param>
+        /// <param name="radius">Racionální číslo určující poloměr kruhu.</param>
+        /// <param name="color">Barva reprezentovaná objektem typu <c>System.Drawing.Color</c> určující barvu kruhu ve formátu RGB.</param>
+        /// <param name="outlineThickness">Racionální číslo určující tloušťku ohraničení kruhu.</param>
+        /// <param name="outlineColor">Barva reprezentovaná objektem typu <c>System.Drawing.Color</c> určující barvu ohraničení kruhu ve formátu RGB.</param>
         public Circle(Vector3 position, float radius, System.Drawing.Color color, float outlineThickness, System.Drawing.Color outlineColor)
             : this(position, radius, new Vector4(1, 1, 1, 1), outlineThickness, new Vector4(1, 1, 1, 1), 0)
         {
@@ -44,9 +108,32 @@ namespace BasicGraphicsEngine
             SetOutlineColor(outlineColor);
         }
 
+        /// <summary>
+        /// Konstruktor třídy <c>Circle</c>, který vytvoří kruh pomocí následujících parametrů (v uvedeném pořadí):
+        /// <list type="bullet">
+        ///     <item>Střed kruhu: <c>Vector3</c>.</item>
+        ///     <item>Poloměr kruhu: <c>float</c>.</item>
+        ///     <item>Barva: <c>Vector4</c> (RGBA).</item>
+        /// </list>
+        /// </summary>
+        /// <param name="position">3D vektor určující polohu i střed kruhu.</param>
+        /// <param name="radius">Racionální číslo určující poloměr kruhu.</param>
+        /// <param name="color">4D vektor určující barvu kruhu ve formátu RGBA. Jednolivé složky nabývají racionálních hodnot z intervalu 
+        /// (0; 1).</param>
         public Circle(Vector3 position, float radius, Vector4 color)
-            : this(position, radius, color, 0, new Vector4(0, 0, 0, 0), 0) { }
+            : this(position, radius, color, 0, new Vector4(0, 0, 0, 1), 0) { }
 
+        /// <summary>
+        /// Konstruktor třídy <c>Circle</c>, který vytvoří kruh pomocí následujících parametrů (v uvedeném pořadí):
+        /// <list type="bullet">
+        ///     <item>Střed kruhu: <c>Vector3</c>.</item>
+        ///     <item>Poloměr kruhu: <c>float</c>.</item>
+        ///     <item>Barva: <c>System.Drawing.Color</c> (RGB).</item>
+        /// </list>
+        /// </summary>
+        /// <param name="position">3D vektor určující polohu i střed kruhu.</param>
+        /// <param name="radius">Racionální číslo určující poloměr kruhu.</param>
+        /// <param name="color">Barva reprezentovaná objektem typu <c>System.Drawing.Color</c> určující barvu kruhu ve formátu RGB.</param>
         public Circle(Vector3 position, float radius, System.Drawing.Color color)
             : this(position, radius, new Vector4(1, 1, 1, 1)) 
         {

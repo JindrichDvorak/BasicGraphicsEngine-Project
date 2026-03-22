@@ -71,6 +71,14 @@ namespace BasicGraphicsEngine
         public Settings Settings = new Settings();
 
         // User input:
+        /// <summary>
+        /// Objekt obsahující funkce, které umožňují detekovat, zdali je daná klávesa, nebo tlačítko myši stále 
+        /// stisknuté.
+        /// <list type="bullet">
+        ///     <item>Pro klávesy: <c>IsKeyPressed()</c></item>
+        ///     <item>Pro tlačítka myši: <c>IsMouseButtonPressed()</c></item>
+        /// </list>
+        /// </summary>
         public UserInput UserInput;
 
         public Application(string title, uint viewportWidth, uint viewportHeight, bool enableVSync, int samples) 

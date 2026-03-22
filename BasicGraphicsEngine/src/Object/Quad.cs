@@ -12,7 +12,7 @@ namespace BasicGraphicsEngine
         internal static int VertexIndexStride = 7;
         internal static int InstanceIndexStride = VertexCount * VertexIndexStride;
 
-        public Quad(Vector3 position, float width, float height, Vector4 color, float rotationAngle)
+        private Quad(Vector3 position, float width, float height, Vector4 color, float rotationAngle)
             : base(GeometryType.QUAD, new Vector3[4], position, rotationAngle, color)
         { 
             _width = width;
@@ -21,9 +21,36 @@ namespace BasicGraphicsEngine
             UpdateBaseGeometry();
         }
 
+        /// <summary>
+        /// Konstruktor třídy <c>Quad</c>, který vytvoří obdélník pomocí následujících parametrů (v uvedeném pořadí):
+        /// <list type="bullet">
+        ///     <item>Střed obdélníku: <c>Vector3</c>.</item>
+        ///     <item>Šířka obdélníku: <c>float</c>.</item>
+        ///     <item>Výška obdélníku: <c>float</c>.</item>
+        ///     <item>Barva: <c>Vector4</c> (RGBA).</item>
+        /// </list>
+        /// </summary>
+        /// <param name="position">3D vektor určující střed obdélníku.</param>
+        /// <param name="width">Racionální číslo určující šířku obdélníku.</param>
+        /// <param name="height">Racionální číslo určující výšku obdélníku.</param>
+        /// <param name="color">4D vektor určující barvu obdélníku ve formátu RGBA. Jednolivé složky nabývají racionálních 
+        /// hodnot z intervalu (0; 1).</param>
         public Quad(Vector3 position, float width, float height, Vector4 color)
             : this(position, width, height, color, 0) { }
 
+        /// <summary>
+        /// Konstruktor třídy <c>Quad</c>, který vytvoří obdélník pomocí následujících parametrů (v uvedeném pořadí):
+        /// <list type="bullet">
+        ///     <item>Střed obdélníku: <c>Vector3</c>.</item>
+        ///     <item>Šířka obdélníku: <c>float</c>.</item>
+        ///     <item>Výška obdélníku: <c>float</c>.</item>
+        ///     <item>Barva: <c>System.Drawing.Color</c> (RGB).</item>
+        /// </list>
+        /// </summary>
+        /// <param name="position">3D vektor určující střed obdélníku.</param>
+        /// <param name="width">Racionální číslo určující šířku obdélníku.</param>
+        /// <param name="height">Racionální číslo určující výšku obdélníku.</param>
+        /// <param name="color">Barva reprezentovaná objektem typu <c>System.Drawing.Color</c> určující barvu obdélníku ve formátu RGB.</param>
         public Quad(Vector3 position, float width, float height, System.Drawing.Color color)
             : this(position, width, height, new Vector4(1, 1, 1, 1), 0)
         {

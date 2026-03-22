@@ -3,6 +3,9 @@
 
 namespace BasicGraphicsEngine
 {
+    /// <summary>
+    /// Enumerace <c>UserKeyboardKey</c> definuje klávesy, se kterými může aplikace interagovat. 
+    /// </summary>
     public enum UserKeyboardKey
     { 
         NONE,
@@ -79,6 +82,9 @@ namespace BasicGraphicsEngine
         Numpad9
     }
 
+    /// <summary>
+    /// Enumerace <c>UserMouseButton</c> definuje tlačítka myši, se kterými může aplikace interagovat. 
+    /// </summary>
     public enum UserMouseButton
     { 
         NONE,
@@ -257,6 +263,12 @@ namespace BasicGraphicsEngine
             return UserKeyboardKey.NONE;
         }
 
+        /// <summary>
+        /// Funkce <c>IsKeyPressed()</c> umožňuje detekovat, zdali je daná klávesa reprezentovaná parametrem <c>key</c> 
+        /// stále stisknutá => funkce vrací <c>true</c> každý frame, pokud je klávesa <c>key</c> stisknutá.
+        /// </summary>
+        /// <param name="key">Klávesa reprezentovaná enumerací <c>UserKeyboardKey</c>.</param>
+        /// <returns>Pravdivostní hodnotu indikující, zdali je klávesa <c>key</c> právě stisknutá, jinak vrací <c>false</c>.</returns>
         public bool IsKeyPressed(UserKeyboardKey key)
         {
             return _keyboard.IsKeyPressed(UserKeyToSilkKey(key));
@@ -286,6 +298,12 @@ namespace BasicGraphicsEngine
             return UserMouseButton.NONE;
         }
 
+        /// <summary>
+        /// Funkce <c>IsMouseButtonPressed()</c> umožňuje detekovat, zdali je dané tlačítko myši reprezentované parametrem <c>button</c> 
+        /// stále stisknuté => funkce vrací <c>true</c> každý frame, pokud je tlačítko myši <c>button</c> stisknuté, jinak vrací <c>false</c>.
+        /// </summary>
+        /// <param name="key">Klávesa reprezentovaná enumerací <c>UserKeyboardKey</c>.</param>
+        /// <returns>Pravdivostní hodnotu indikující, zdali je klávesa <c>key</c> právě stisknutá.</returns>
         public bool IsMouseButtonPressed(UserMouseButton button)
         {
             return _mouse.IsButtonPressed(UserMouseButtonToSilkMouseButton(button));
