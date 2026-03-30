@@ -121,6 +121,8 @@ namespace BasicGraphicsEngine
                 Settings.CameraSceneHeight,
                 Settings.CameraSceneDepth,
                 Settings.CameraPosition,
+                Settings.CameraMovementSpeed,
+                Settings.CameraMouseSensitivity,
                 Settings.BackgroundColor
             );
             _renderer.OnWindowResize(_viewportWidth, _viewportHeight);

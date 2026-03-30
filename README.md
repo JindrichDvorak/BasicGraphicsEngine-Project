@@ -10,7 +10,7 @@ Tento repozitář obsahuje `Visual Studio` řešení `BasicGraphicsEngine-Projec
   - `Silk.NET.OpenGL`
   - `Silk.NET.Windowing`
   - `Silk.NET.Input`
-- `ProjectApp` - Projekt, který se odkazuje na statickou knihovnu `BasicGraphicsEngine` a zároveň obsahuje implementaci její základní třídy `Application`. Základní podoba tohoto projektu obsahuje dva zdrojové soubory:
+- `ProjectApp` - Konzolová aplikace, která se odkazuje na statickou knihovnu `BasicGraphicsEngine` a zároveň obsahuje implementaci její základní třídy `Application`. Základní podoba tohoto projektu obsahuje dva zdrojové soubory:
   - `BGEapp.cs` - Obsahuje třídu `BGEapp`, která implementuje abstraktní třídu `Application` knihovny `BasicGraphicsEngine`. V jednotlivých metodách této třídy je tedy možné implementovat vlastní logiku, jejíž výstupem by měla být 2D grafika.
   - `Program.cs` - Obsahuje `Main` metodu, ve které se definuje objekt třídy `BGEapp` a následně se spouští grafické vykreslování -- otevírá se okno s grafickým výstupem aplikace.
 

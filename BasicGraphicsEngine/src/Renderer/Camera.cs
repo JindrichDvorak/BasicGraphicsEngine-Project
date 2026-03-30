@@ -5,7 +5,7 @@ using System.Numerics;
 namespace BasicGraphicsEngine
 {
     internal enum ProjectionType
-    { 
+    {
         ORTHOGRAPHIC,
         PERSPECTIVE
     }
@@ -45,7 +45,8 @@ namespace BasicGraphicsEngine
 
         private Vector2? _lastMousePosition;
 
-        internal Camera(ProjectionType projectionType, uint sceneHeight, float sceneDepth, uint viewportWidth, uint viewportHeight, Vector3 position)
+        internal Camera(ProjectionType projectionType, uint sceneHeight, float sceneDepth, uint viewportWidth, uint viewportHeight, Vector3 position, 
+            float movementSpeed, float mouseSensitivity)
         {
             _projectionType = projectionType;
             _position = position;
@@ -99,7 +100,7 @@ namespace BasicGraphicsEngine
         {
             if (_changedProjection) UpdateProjectionMatrix();
             if (_changedTransform) UpdateTransformMatrix();
-            if (_changedProjection || _changedTransform) 
+            if (_changedProjection || _changedTransform)
             {
                 _viewMatrix = _transformMatrix * _projectionMatrix;
                 _changedProjection = false;
@@ -121,24 +122,26 @@ namespace BasicGraphicsEngine
                 if (input.Keyboards[i].IsKeyPressed(Key.Left)) leftKeyPressed = true;
             }
 
+            float movementDiff = _movementSpeed * _zoom * dt;
+
             if (forwardKeyPressed)
             {
-                _position += _up * _movementSpeed * dt;
+                _position += _up * movementDiff;
                 _changedTransform = true;
             }
             if (backwardKeyPressed)
             {
-                _position -= _up * _movementSpeed * dt;
+                _position -= _up * movementDiff;
                 _changedTransform = true;
             }
             if (rightKeyPressed)
             {
-                _position += _right * _movementSpeed * dt;
+                _position += _right * movementDiff;
                 _changedTransform = true;
             }
             if (leftKeyPressed)
             {
-                _position -= _right * _movementSpeed * dt;
+                _position -= _right * movementDiff;
                 _changedTransform = true;
             }
 
@@ -165,7 +168,7 @@ namespace BasicGraphicsEngine
 
             if (_lastMousePosition == null) _lastMousePosition = mousePosition;
 
-            Vector2 mouseDiff = (mousePosition - (Vector2)_lastMousePosition) * _mouseSensitivity;
+            Vector2 mouseDiff = (mousePosition - (Vector2)_lastMousePosition) * _mouseSensitivity * _zoom;
             _lastMousePosition = mousePosition;
 
             _position -= new Vector3(mouseDiff.X, -mouseDiff.Y, 0.0f);
@@ -185,7 +188,7 @@ namespace BasicGraphicsEngine
         }
 
         private void ClampZoom(float zoom)
-        { 
+        {
             _zoom = zoom;
             ClampZoom();
         }
@@ -219,8 +222,8 @@ namespace BasicGraphicsEngine
         }
 
         internal void SetViewportSize(uint viewportWidth, uint viewportHeight)
-        { 
-            _viewportWidth = viewportWidth; 
+        {
+            _viewportWidth = viewportWidth;
             _viewportHeight = viewportHeight;
 
             _aspectRatio = (float)_viewportWidth / _viewportHeight;
@@ -240,7 +243,7 @@ namespace BasicGraphicsEngine
         /// </summary>
         /// <param name="position">3D vektor určující novou pozici kamery.</param>
         public void SetPosition(Vector3 position)
-        { 
+        {
             _position = position;
 
             _changedTransform = true;
@@ -253,7 +256,7 @@ namespace BasicGraphicsEngine
         /// <param name="y">Racionální číslo určující y-ovou souřadnici nové pozice kamery.</param>
         /// <param name="z">Racionální číslo určující z-ovou souřadnici nové pozice kamery.</param>
         public void SetPosition(float x, float y, float z)
-        { 
+        {
             SetPosition(new Vector3(x, y, z));
         }
 
@@ -321,10 +324,30 @@ namespace BasicGraphicsEngine
         /// </summary>
         /// <param name="sceneDepth">Racionální číslo určující hloubku zorného pole kamery.</param>
         public void SetSceneDepth(float sceneDepth)
-        { 
+        {
             _sceneDepth = sceneDepth;
 
             _changedProjection = true;
+        }
+
+        /// <summary>
+        /// Metoda <c>SetMovementSpeed()</c> umožňuje nastavit rychlost posouvání kamery pomocí šipek na klávesnici na hodnotu 
+        /// parametru <c>movementSpeed</c>.
+        /// </summary>
+        /// <param name="movementSpeed">Racionální číslo určující rychlost posuvného pohybu kamery pomocí šipek na klávesnici.</param>
+        public void SetMovementSpeed(float movementSpeed)
+        { 
+            _movementSpeed = movementSpeed;
+        }
+
+        /// <summary>
+        /// Metoda <c>SetMouseSensitivity()</c> umožňuje nastavit rychlost posouvání kamery dragováním myši (při držení pravého tlačítka) na 
+        /// hodnotu parametru <c>mouseSensitivity</c>.
+        /// </summary>
+        /// <param name="mouseSensitivity">Racionální číslo určující rychlost posouvání kamery dragováním myši.</param>
+        public void SetMouseSensitivity(float mouseSensitivity)
+        { 
+            _mouseSensitivity = mouseSensitivity;
         }
 
         /// <summary>
@@ -332,7 +355,7 @@ namespace BasicGraphicsEngine
         /// </summary>
         /// <returns>Pozici kamery jako <c>Vector3</c>.</returns>
         public Vector3 GetPosition()
-        { 
+        {
             return _position;
         }
 

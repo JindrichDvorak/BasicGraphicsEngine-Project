@@ -31,7 +31,7 @@ namespace BasicGraphicsEngine
         private Color _clearColor = Color.CornflowerBlue;
 
         public Renderer(IWindow window, uint viewportWidth, uint viewportHeight, uint maxParticles, uint maxQuads, uint maxLines, uint maxCircles, 
-            uint cameraSceneHeight, float cameraSceneDepth, Vector3 cameraPosition, Color backgroundColor)
+            uint cameraSceneHeight, float cameraSceneDepth, Vector3 cameraPosition, float cameraMovementSpeed, float cameraMouseSensitivity, Color backgroundColor)
         {
             _gl = window.CreateOpenGL();
             _gl.Enable(GLEnum.ProgramPointSize);
@@ -40,7 +40,8 @@ namespace BasicGraphicsEngine
             _gl.Enable(EnableCap.Blend);
             _gl.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
             _gl.Viewport(0, 0, viewportWidth, viewportHeight);
-            _camera = new Camera(ProjectionType.ORTHOGRAPHIC, cameraSceneHeight, cameraSceneDepth, viewportWidth, viewportHeight, cameraPosition);
+            _camera = new Camera(ProjectionType.ORTHOGRAPHIC, cameraSceneHeight, cameraSceneDepth, viewportWidth, viewportHeight, 
+                cameraPosition, cameraMovementSpeed, cameraMouseSensitivity);
 
             _particleShader = new Shader(_gl,
                 "Particle",
