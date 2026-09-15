@@ -20,7 +20,7 @@ namespace BasicGraphicsEngine
                 indices[i] = i;
             }
 
-            CreateBuffer(maxInstances, maxInstances, layout, indices);
+            CreateBuffer(maxInstances, maxInstances, layout, indices, true);
         }
     }
 }

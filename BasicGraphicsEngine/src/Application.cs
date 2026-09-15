@@ -144,7 +144,7 @@ namespace BasicGraphicsEngine
         private void OnRender(double dt)
         {
             _renderer.ClearWindow();
-            _renderer.Render((float)dt, _input, _objectManager.GetVertexDataOpaque(), _objectManager.GetTransparentBatches());
+            _renderer.Render((float)dt, _input, _objectManager.GetVertexDataOpaque(), _objectManager.GetTransparentBatches(), _objectManager.GetParticleCount());
         }
 
         private void OnResize(Vector2D<int> size)

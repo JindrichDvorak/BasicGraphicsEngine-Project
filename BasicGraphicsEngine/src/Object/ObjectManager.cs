@@ -270,5 +270,10 @@ namespace BasicGraphicsEngine
         {
             return _transparentBatches;
         }
+
+        public uint GetParticleCount()
+        { 
+            return (uint)_particles.Count;
+        }
     }
 }

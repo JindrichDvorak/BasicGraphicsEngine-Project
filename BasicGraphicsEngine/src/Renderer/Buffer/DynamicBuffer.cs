@@ -24,7 +24,7 @@ namespace BasicGraphicsEngine
             _IBO = _gl.GenBuffer();
         }
 
-        private unsafe void SetupVertexAttributes()
+        private unsafe void SetupVertexAttributes(bool instanced = false)
         {
             BufferElement[] elements = _bufferLayout.GetBufferElements();
             for (uint i = 0; i < elements.Length; i++)
@@ -40,10 +40,15 @@ namespace BasicGraphicsEngine
                     _bufferLayout.GetStride(),
                     (void*)element.Offset
                 );
+
+                if (instanced) 
+                {
+                    _gl.VertexAttribDivisor(i, 1);
+                }
             }
         }
 
-        internal unsafe void CreateBuffer(uint maxVertices, uint maxIndices, BufferLayout layout, uint[] indices)
+        internal unsafe void CreateBuffer(uint maxVertices, uint maxIndices, BufferLayout layout, uint[] indices, bool instanced = false)
         {
             _maxVertices = maxVertices;
             _maxIndices = maxIndices;
@@ -60,7 +65,7 @@ namespace BasicGraphicsEngine
             _gl.BufferData<uint>(BufferTargetARB.ElementArrayBuffer, _maxIndices * sizeof(uint), indices,
                 BufferUsageARB.StaticDraw);
 
-            SetupVertexAttributes();
+            SetupVertexAttributes(instanced);
         }
 
         public unsafe void SetVertexData(float[] vertexData)

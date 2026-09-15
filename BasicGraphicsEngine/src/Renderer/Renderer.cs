@@ -71,35 +71,35 @@ namespace BasicGraphicsEngine
             SetClearColor(backgroundColor);
         }
 
-        public void Render(float dt, IInputContext input, VertexData vertexDataOpaque, List<RenderBatch> transparentBatches)
+        public void Render(float dt, IInputContext input, VertexData vertexDataOpaque, List<RenderBatch> transparentBatches, uint instanceCount)
         {
             _camera.Update(input, dt);
 
             // Render opaque objects:
             _gl.DepthMask(true);
-            RenderOpaque(vertexDataOpaque);
+            RenderOpaque(vertexDataOpaque, instanceCount);
 
             // Render transparent objects:
             _gl.DepthMask(false);
-            RenderTransparent(transparentBatches);
+            RenderTransparent(transparentBatches, instanceCount);
             _gl.DepthMask(true);
         }
 
-        private void RenderOpaque(VertexData vertexData)
+        private void RenderOpaque(VertexData vertexData, uint instanceCount)
         {
-            if (vertexData.ParticleVertexData != null) RenderParticles(vertexData.ParticleVertexData);
+            if (vertexData.ParticleVertexData != null) RenderParticles(vertexData.ParticleVertexData, instanceCount);
             if (vertexData.ParticleVertexData != null) RenderQuads(vertexData.QuadVertexData);
             if (vertexData.ParticleVertexData != null) RenderLines(vertexData.LineVertexData);
             if (vertexData.ParticleVertexData != null) RenderCircles(vertexData.CircleVertexData);
         }
 
-        private void RenderTransparent(List<RenderBatch> transparentBatches)
+        private void RenderTransparent(List<RenderBatch> transparentBatches, uint instanceCount)
         {
             foreach (RenderBatch batch in transparentBatches)
             {
                 switch (batch.Type)
                 {
-                    case GeometryType.PARTICLE: if (batch.VertexData != null) RenderParticles(batch.VertexData); break;
+                    case GeometryType.PARTICLE: if (batch.VertexData != null) RenderParticles(batch.VertexData, instanceCount); break;
                     case GeometryType.QUAD: if (batch.VertexData != null) RenderQuads(batch.VertexData); break;
                     case GeometryType.LINE: if (batch.VertexData != null) RenderLines(batch.VertexData); break;
                     case GeometryType.CIRCLE: if (batch.VertexData != null) RenderCircles(batch.VertexData); break;
@@ -107,13 +107,13 @@ namespace BasicGraphicsEngine
             }
         }
 
-        private unsafe void RenderParticles(float[] vertices)
+        private unsafe void RenderParticles(float[] vertices, uint instanceCount)
         {
             _particleShader.UseShader();
             _particleShader.SetMat4("viewMatrix", _camera.GetViewMatrix());
 
             _particleBuffer.SetVertexData(vertices);
-            _gl.DrawElements(PrimitiveType.Points, _particleBuffer.GetMaxIndices(), DrawElementsType.UnsignedInt, (void*)0);
+            _gl.DrawElementsInstanced(PrimitiveType.Points, _particleBuffer.GetMaxIndices(), DrawElementsType.UnsignedInt, (void*)0, instanceCount);
         }
 
         private unsafe void RenderQuads(float[] vertices)
