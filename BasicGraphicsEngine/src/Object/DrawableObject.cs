@@ -165,9 +165,9 @@ namespace BasicGraphicsEngine
         }
 
         /// <summary>
-        /// Metoda <c>SetRotationAngle()</c> otočí objekt kolem osy z o úhel (v radiánech), který určuje parametr <c>rotationAngle</c>.
+        /// Metoda <c>SetRotationAngle()</c> otočí objekt kolem osy z o úhel (ve stupních), který určuje parametr <c>rotationAngle</c>.
         /// </summary>
-        /// <param name="rotationAngle">Racionální číslo reprezentující velikost úhlu v radiánech.</param>
+        /// <param name="rotationAngle">Racionální číslo reprezentující velikost úhlu ve stupních.</param>
         public void SetRotationAngle(float rotationAngle)
         { 
             _rotationAngle = rotationAngle;

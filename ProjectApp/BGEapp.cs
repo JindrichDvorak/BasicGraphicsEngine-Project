@@ -13,7 +13,7 @@ internal class BGEapp : Application
 
     public BGEapp(string title, uint viewportWidth, uint viewportHeight) : base(title, viewportWidth, viewportHeight)
     {
-        
+
     }
 
     // -------------- ZÁKLADNÍ LOGIKA APLIKACE -------------- //
@@ -25,7 +25,7 @@ internal class BGEapp : Application
 
     public override void Loop(float dt)
     {
-        
+
     }
 
     // -------------- UŽIVATELSKÝ INPUT --------------------- //
