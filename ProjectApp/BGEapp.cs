@@ -1,6 +1,6 @@
 ﻿using BasicGraphicsEngine; // Grafické vykreslování.
-using System.Numerics;     // Integrovaná implementace vektorů, matic a jejich operací. 
 using System.Drawing;      // Integrovaná implementace barev kompatibilní s BasicGraphicsEngine.
+using System.Numerics;     // Integrovaná implementace vektorů, matic a jejich operací. 
 
 
 namespace ProjectApp;
@@ -59,6 +59,6 @@ internal class BGEapp : Application
 
     public override void MouseScrollEvent(float mouseWheelX, float mouseWheelY)
     {
-        
+
     }
 }

@@ -113,7 +113,7 @@ namespace BasicGraphicsEngine
             _particleShader.SetMat4("viewMatrix", _camera.GetViewMatrix());
 
             _particleBuffer.SetVertexData(vertices);
-            _gl.DrawElementsInstanced(PrimitiveType.Points, _particleBuffer.GetMaxIndices(), DrawElementsType.UnsignedInt, (void*)0, instanceCount);
+            _gl.DrawElementsInstanced(PrimitiveType.Points, instanceCount, DrawElementsType.UnsignedInt, (void*)0, instanceCount);
         }
 
         private unsafe void RenderQuads(float[] vertices)

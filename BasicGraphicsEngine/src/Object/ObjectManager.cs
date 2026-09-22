@@ -22,6 +22,7 @@ namespace BasicGraphicsEngine
     {
         private int _maxParticles;
         private List<Particle> _particles = [];
+        private uint _particleCount = 0;
 
         private int _maxQuads;
         private List<Quad> _quads = [];
@@ -61,6 +62,7 @@ namespace BasicGraphicsEngine
                     if (_particles.Count < _maxParticles)
                     {
                         _particles.Add((Particle)obj);
+                        particleCount++;
                     } 
                     break;
                 case GeometryType.QUAD:
@@ -88,7 +90,7 @@ namespace BasicGraphicsEngine
         {
             switch (obj.GetGeometryType())
             {
-                case GeometryType.PARTICLE: _particles.Remove((Particle)obj); break;
+                case GeometryType.PARTICLE: _particles.Remove((Particle)obj); particleCount--; break;
                 case GeometryType.QUAD: _quads.Remove((Quad)obj); break;
                 case GeometryType.LINE: _lines.Remove((Line)obj); break;
                 case GeometryType.CIRCLE: _circles.Remove((Circle)obj); break;
@@ -273,7 +275,7 @@ namespace BasicGraphicsEngine
 
         public uint GetParticleCount()
         { 
-            return (uint)_particles.Count;
+            return particleCount;
         }
     }
 }

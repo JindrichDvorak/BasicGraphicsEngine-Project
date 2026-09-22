@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace BasicGraphicsEngine
 {
-    internal enum GeometryType
+    public enum GeometryType
     { 
         PARTICLE,
         TRIANGLE,
@@ -338,7 +338,7 @@ namespace BasicGraphicsEngine
             return _outlineColor;
         }
 
-        internal GeometryType GetGeometryType()
+        public GeometryType GetGeometryType()
         {
             return _geometryType;
         }
