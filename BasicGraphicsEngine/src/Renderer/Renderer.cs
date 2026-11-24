@@ -87,10 +87,10 @@ namespace BasicGraphicsEngine
 
         private void RenderOpaque(VertexData vertexData, uint instanceCount)
         {
-            if (vertexData.ParticleVertexData != null) RenderParticles(vertexData.ParticleVertexData, instanceCount);
-            if (vertexData.ParticleVertexData != null) RenderQuads(vertexData.QuadVertexData);
-            if (vertexData.ParticleVertexData != null) RenderLines(vertexData.LineVertexData);
-            if (vertexData.ParticleVertexData != null) RenderCircles(vertexData.CircleVertexData);
+            if (vertexData.ParticleVertexData != null) RenderParticles(vertexData.ParticleVertexData);
+            if (vertexData.QuadVertexData != null) RenderQuads(vertexData.QuadVertexData);
+            if (vertexData.LineVertexData != null) RenderLines(vertexData.LineVertexData);
+            if (vertexData.CircleVertexData != null) RenderCircles(vertexData.CircleVertexData);
         }
 
         private void RenderTransparent(List<RenderBatch> transparentBatches, uint instanceCount)
@@ -99,7 +99,7 @@ namespace BasicGraphicsEngine
             {
                 switch (batch.Type)
                 {
-                    case GeometryType.PARTICLE: if (batch.VertexData != null) RenderParticles(batch.VertexData, instanceCount); break;
+                    case GeometryType.PARTICLE: if (batch.VertexData != null) RenderParticles(batch.VertexData); break;
                     case GeometryType.QUAD: if (batch.VertexData != null) RenderQuads(batch.VertexData); break;
                     case GeometryType.LINE: if (batch.VertexData != null) RenderLines(batch.VertexData); break;
                     case GeometryType.CIRCLE: if (batch.VertexData != null) RenderCircles(batch.VertexData); break;
@@ -107,40 +107,52 @@ namespace BasicGraphicsEngine
             }
         }
 
-        private unsafe void RenderParticles(float[] vertices, uint instanceCount)
+        private unsafe void RenderParticles(float[] vertices)
         {
+            if (vertices.Length == 0) return;
+            uint instanceCount = (uint)(vertices.Length / Particle.InstanceIndexStride);
+
             _particleShader.UseShader();
             _particleShader.SetMat4("viewMatrix", _camera.GetViewMatrix());
 
             _particleBuffer.SetVertexData(vertices);
-            _gl.DrawElementsInstanced(PrimitiveType.Points, instanceCount, DrawElementsType.UnsignedInt, (void*)0, instanceCount);
+            _gl.DrawElementsInstanced(PrimitiveType.Points, 1, DrawElementsType.UnsignedInt, (void*)0, instanceCount);
         }
 
         private unsafe void RenderQuads(float[] vertices)
         {
+            if (vertices.Length == 0) return;
+            uint indexCount = (uint)(vertices.Length / Quad.InstanceIndexStride) * 6;
+
             _quadShader.UseShader();
             _quadShader.SetMat4("viewMatrix", _camera.GetViewMatrix());
 
             _quadBuffer.SetVertexData(vertices);
-            _gl.DrawElements(PrimitiveType.Triangles, _quadBuffer.GetMaxIndices(), DrawElementsType.UnsignedInt, (void*)0);
+            _gl.DrawElements(PrimitiveType.Triangles, indexCount, DrawElementsType.UnsignedInt, (void*)0);
         }
 
         private unsafe void RenderLines(float[] vertices)
         {
+            if (vertices.Length == 0) return;
+            uint indexCount = (uint)(vertices.Length / Line.InstanceIndexStride) * 6;
+
             _lineShader.UseShader();
             _lineShader.SetMat4("viewMatrix", _camera.GetViewMatrix());
 
             _lineBuffer.SetVertexData(vertices);
-            _gl.DrawElements(PrimitiveType.Triangles, _lineBuffer.GetMaxIndices(), DrawElementsType.UnsignedInt, (void*)0);
+            _gl.DrawElements(PrimitiveType.Triangles, indexCount, DrawElementsType.UnsignedInt, (void*)0);
         }
 
         private unsafe void RenderCircles(float[] vertices)
         {
+            if (vertices.Length == 0) return;
+            uint indexCount = (uint)(vertices.Length / Circle.InstanceIndexStride) * 6;
+
             _circleShader.UseShader();
             _circleShader.SetMat4("viewMatrix", _camera.GetViewMatrix());
 
             _circleBuffer.SetVertexData(vertices);
-            _gl.DrawElements(PrimitiveType.Triangles, _quadBuffer.GetMaxIndices(), DrawElementsType.UnsignedInt, (void*)0);
+            _gl.DrawElements(PrimitiveType.Triangles, indexCount, DrawElementsType.UnsignedInt, (void*)0);
         }
 
         public void SetClearColor(Color color) 

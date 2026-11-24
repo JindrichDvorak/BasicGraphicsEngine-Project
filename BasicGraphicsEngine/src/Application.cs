@@ -333,6 +333,15 @@ namespace BasicGraphicsEngine
         }
 
         /// <summary>
+        /// Metoda <c>ClearObjects()</c> odstraní všechny objekty přidané pomocí metody <c>AddObject()</c> z paměti programu => v dalších snímcích 
+        /// již tyto objekty nebudou vykreslovány.
+        /// </summary>
+        public void ClearObjects()
+        {
+            _objectManager.ClearObjects();
+        }
+
+        /// <summary>
         /// Metoda <c>SetBackgroundColor()</c> umožňuje změnit barvu pozadí (clear color).
         /// </summary>
         /// <param name="color">Nová barva pozadí typu <c>System.Drawing.Color</c>.</param>
